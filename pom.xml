@@ -102,7 +102,6 @@
 		    <version>0.1.4</version>
 		</dependency>
 
-
 		<!--对json和xml格式的支持 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
