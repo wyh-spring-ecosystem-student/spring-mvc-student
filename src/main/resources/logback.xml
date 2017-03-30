@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="1 seconds">
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<jmxConfigurator />
+	
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>E:/workspace/spring-ecosystem-student/spring-mvc-student/logs/log.%d{yyyy-MM-dd}.log</fileNamePattern>  
+            <maxHistory>30</maxHistory>  
+        </rollingPolicy>  
+        <encoder>  
+            <pattern>%-4relative %d{HH:mm:ss.SSS} - [%thread] %-5level %class - %msg%n</pattern>  
+        </encoder>  
+    </appender> 
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>logbak: %d{HH:mm:ss.SSS} %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 将org.springframework.web包下的类的日志级别设置为DEBUG，
+		我们开发Spring MVC经常出现和参数类型相关的4XX错误，设置此项我们可以看到更相信的信息 -->
+	<logger name="org.springframework.web" level="DEBUG" />
+	
+	<root level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</root>
+</configuration>
