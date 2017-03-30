@@ -32,7 +32,7 @@ public class WebInitializer implements WebApplicationInitializer{
 		servlet.addMapping("/");
 		servlet.setLoadOnStartup(1);
 		
-		// 日志配置
+		// 日志配置(如果 classpath 里有  logback.xml文件， logback 会试图用它进行自我配置，所以下面两句代码可以不写)
 		servletContext.setInitParameter("logbackConfigLocation", "classpath:logback.xml");
 		servletContext.addListener(LogbackConfigListener.class);
 	}
