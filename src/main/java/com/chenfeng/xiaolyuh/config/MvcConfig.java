@@ -1,13 +1,17 @@
 package com.chenfeng.xiaolyuh.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import com.chenfeng.xiaolyuh.interceptor.DemoInterceptor;
 
 /**
  * MVC 配置类。这里我们配置了一个jsp的ViewResolver，用来映射路径和实际页面的位置，
@@ -24,6 +28,9 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan("com.chenfeng.xiaolyuh")
 public class MvcConfig extends WebMvcConfigurerAdapter {// 重写WebMvcConfigurerAdapter类的方法可以对Spring MVC
 	
+	@Autowired
+	private DemoInterceptor demoInterceptor;
+	
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -37,5 +44,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {// 重写WebMvcConfigure
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// addResourceLocations是指文件放置的目录，addResourceHandler是指对外暴露的地址
 		registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		// 注册拦截器
+		registry.addInterceptor(demoInterceptor);
 	}
 }
