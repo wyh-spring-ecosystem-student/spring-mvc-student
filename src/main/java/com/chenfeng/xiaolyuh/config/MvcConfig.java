@@ -6,7 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -50,5 +52,20 @@ public class MvcConfig extends WebMvcConfigurerAdapter {// 重写WebMvcConfigure
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 注册拦截器
 		registry.addInterceptor(demoInterceptor);
+	}
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		// 重定向
+		registry.addRedirectViewController("index3", "index");
+		// 直接配置请求路径（index3）和页面（index.jsp）之间的映射。
+		// 无任何业务逻辑只是简单的业务逻辑可以这样子写，代码更简洁，管理集中
+		registry.addViewController("index2").setViewName("index");
+	}
+	
+	@Override
+	public void configurePathMatch(PathMatchConfigurer configurer) {
+		// 设置URL中如果带有【.】的话，不忽略【.】后面的东西
+		configurer.setUseSuffixPatternMatch(false);
 	}
 }
