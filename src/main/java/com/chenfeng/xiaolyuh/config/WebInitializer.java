@@ -6,6 +6,7 @@ import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import ch.qos.logback.ext.spring.web.LogbackConfigListener;
@@ -22,6 +23,11 @@ public class WebInitializer implements WebApplicationInitializer{
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+		// 设置编码
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+		characterEncodingFilter.setEncoding("UTF-8");
+		servletContext.addFilter("CharacterEncodingFilter",  characterEncodingFilter);
+		
 		// 新建一个WebApplicationContext的注册配置类，并和当前的servletContext关联
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(MvcConfig.class);

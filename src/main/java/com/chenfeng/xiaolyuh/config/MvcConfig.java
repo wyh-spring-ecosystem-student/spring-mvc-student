@@ -48,6 +48,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {// 重写WebMvcConfigure
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 		multipartResolver.setMaxUploadSize(10000000);
+		multipartResolver.setDefaultEncoding("UTF-8");
 		return multipartResolver;
 	}
 	
@@ -70,7 +71,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {// 重写WebMvcConfigure
 		// 直接配置请求路径（index3）和页面（index.jsp）之间的映射。
 		// 无任何业务逻辑只是简单的业务逻辑可以这样子写，代码更简洁，管理集中
 		registry.addViewController("index2").setViewName("index");
-		registry.addViewController("upload").setViewName("upload");
+		registry.addViewController("forUpload").setViewName("upload");
 	}
 	
 	@Override
