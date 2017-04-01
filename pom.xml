@@ -55,9 +55,9 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
+			<!-- 编译和测试的时候用 -->
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>

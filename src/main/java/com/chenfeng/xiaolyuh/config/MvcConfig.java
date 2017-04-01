@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -42,6 +44,13 @@ public class MvcConfig extends WebMvcConfigurerAdapter {// 重写WebMvcConfigure
 		return viewResolver;
 	}
 	
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(10000000);
+		return multipartResolver;
+	}
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// addResourceLocations是指文件放置的目录，addResourceHandler是指对外暴露的地址
@@ -61,6 +70,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {// 重写WebMvcConfigure
 		// 直接配置请求路径（index3）和页面（index.jsp）之间的映射。
 		// 无任何业务逻辑只是简单的业务逻辑可以这样子写，代码更简洁，管理集中
 		registry.addViewController("index2").setViewName("index");
+		registry.addViewController("upload").setViewName("upload");
 	}
 	
 	@Override
