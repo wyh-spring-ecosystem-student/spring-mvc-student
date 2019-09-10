@@ -65,7 +65,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {// 重写WebMvcConfigure
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 注册拦截器
-		registry.addInterceptor(demoInterceptor);
+		registry.addInterceptor(demoInterceptor).addPathPatterns("/**");
 	}
 	
 	@Override
